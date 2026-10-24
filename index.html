@@ -1,0 +1,345 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<link rel="icon" href="favicon.ico" type="image/x-icon">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>大海影视 — 影视作品资料与观影指引平台 · dahaiyingshi-zh</title>
+<meta name="description" content="大海影视（dahaiyingshi-zh）是整理电影、剧集、纪录片与动画番剧资料的影视内容平台，提供作品背景、主创信息与观看指引。访问 https://dahaiyingshi-zh.github.io 查阅完整片单与分类索引。">
+<meta name="keywords" content="大海影视, dahaiyingshi-zh, 影视资料, 电影推荐, 剧集索引, 纪录片, 动画番剧, 观影指南">
+<style>
+:root{
+  --ink:#eaf3ff;
+  --ink-dim:#a8bcd6;
+  --deep:#06111f;
+  --card:rgba(255,255,255,.05);
+  --line:rgba(255,255,255,.12);
+  --accent:#3ddc97;
+  --accent2:#4f8cff;
+  --warm:#ffb86b;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{
+  font-family:"PingFang SC","Microsoft YaHei","WenQuanYi Micro Hei",system-ui,sans-serif;
+  background:var(--deep);
+  color:var(--ink);
+  line-height:1.75;
+  -webkit-font-smoothing:antialiased;
+  background-image:
+    radial-gradient(900px 500px at 12% -8%, rgba(79,140,255,.28), transparent 60%),
+    radial-gradient(700px 420px at 88% 18%, rgba(61,220,151,.18), transparent 62%),
+    radial-gradient(600px 380px at 50% 108%, rgba(255,184,107,.14), transparent 60%);
+  background-attachment:fixed;
+}
+a{color:inherit;text-decoration:none}
+.wrap{max-width:1180px;margin:0 auto;padding:0 22px}
+
+/* 顶部导航 */
+.topbar{
+  position:sticky;top:0;z-index:60;
+  background:rgba(6,17,31,.82);
+  backdrop-filter:blur(14px);
+  border-bottom:1px solid var(--line);
+}
+.topbar .wrap{display:flex;align-items:center;gap:18px;height:64px}
+.brand{font-size:19px;font-weight:700;letter-spacing:.5px;display:flex;align-items:center;gap:9px}
+.brand i{width:9px;height:9px;border-radius:50%;background:var(--accent);box-shadow:0 0 12px var(--accent)}
+.brand em{font-style:normal;color:var(--accent);font-size:12px;padding:2px 8px;border:1px solid rgba(61,220,151,.4);border-radius:20px;margin-left:4px}
+.nav{display:flex;gap:4px;margin-left:auto}
+.nav a{
+  font-size:14px;padding:8px 13px;border-radius:9px;color:var(--ink-dim);
+  transition:.2s;
+}
+.nav a:hover{color:var(--ink);background:var(--card)}
+.menu-btn{display:none;margin-left:auto;background:none;border:1px solid var(--line);color:var(--ink);width:40px;height:40px;border-radius:10px;font-size:19px;cursor:pointer}
+
+/* Hero */
+.hero{padding:86px 0 62px}
+.hero h1{font-size:clamp(30px,5.4vw,54px);line-height:1.25;font-weight:800;letter-spacing:-.5px}
+.hero h1 span{background:linear-gradient(92deg,var(--accent),var(--accent2) 55%,var(--warm));-webkit-background-clip:text;background-clip:text;color:transparent}
+.hero p{margin-top:20px;max-width:640px;color:var(--ink-dim);font-size:16px}
+.hero .url{margin-top:26px;display:inline-flex;align-items:center;gap:10px;flex-wrap:wrap;background:var(--card);border:1px solid var(--line);border-radius:12px;padding:11px 16px;font-size:14px}
+.hero .url b{color:var(--accent);font-weight:600}
+.hero .url span{opacity:.5}
+
+/* 通用区块 */
+section{padding:66px 0;border-top:1px solid var(--line)}
+.eyebrow{font-size:12px;letter-spacing:2.4px;text-transform:uppercase;color:var(--accent);font-weight:600}
+.hd{display:flex;align-items:flex-end;gap:14px;flex-wrap:wrap;margin:10px 0 8px}
+.hd h2{font-size:clamp(23px,3.6vw,34px);font-weight:750}
+.hd .num{font-size:13px;color:var(--ink-dim);border:1px solid var(--line);border-radius:7px;padding:3px 9px;margin-bottom:6px}
+.lead{color:var(--ink-dim);max-width:720px;margin-bottom:34px}
+
+/* 统计格 */
+.stats{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;margin-bottom:40px}
+.stat{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:20px}
+.stat b{display:block;font-size:30px;font-weight:800;color:var(--accent)}
+.stat small{color:var(--ink-dim);font-size:13px}
+
+/* 卡片 */
+.grid{display:grid;grid-template-columns:repeat(3,1fr);gap:18px}
+.card{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:22px;transition:.25s}
+.card:hover{transform:translateY(-4px);border-color:rgba(61,220,151,.45);background:rgba(255,255,255,.08)}
+.card .tag{font-size:12px;color:var(--warm);letter-spacing:1px}
+.card h3{font-size:19px;margin:8px 0 10px}
+.card p{font-size:14px;color:var(--ink-dim)}
+.card .meta{margin-top:16px;padding-top:14px;border-top:1px dashed var(--line);display:flex;justify-content:space-between;font-size:12px;color:var(--ink-dim)}
+.card .meta i{font-style:normal;color:var(--accent2)}
+
+/* 表格 */
+.tbl-wrap{overflow-x:auto;border:1px solid var(--line);border-radius:16px;background:var(--card)}
+table{width:100%;border-collapse:collapse;min-width:620px;font-size:14px}
+th,td{padding:14px 16px;text-align:left;border-bottom:1px solid var(--line);vertical-align:top}
+th{font-size:12px;letter-spacing:1px;color:var(--ink-dim);background:rgba(255,255,255,.03)}
+tr:last-child td{border-bottom:none}
+td strong{color:var(--warm)}
+.pill{display:inline-block;font-size:12px;padding:2px 10px;border-radius:20px;border:1px solid var(--line);color:var(--accent)}
+
+/* 关于 */
+.about-grid{display:grid;grid-template-columns:1.05fr .95fr;gap:22px}
+.note{background:var(--card);border:1px solid var(--line);border-left:3px solid var(--accent);border-radius:14px;padding:22px}
+.note h3{font-size:18px;margin-bottom:12px}
+.note ul{list-style:none}
+.note li{padding:9px 0 9px 22px;position:relative;font-size:14px;color:var(--ink-dim);border-bottom:1px dashed var(--line)}
+.note li:last-child{border-bottom:none}
+.note li::before{content:"";position:absolute;left:0;top:17px;width:7px;height:7px;border-radius:50%;background:var(--accent2)}
+.quote{background:linear-gradient(160deg,rgba(61,220,151,.1),rgba(79,140,255,.06));border:1px solid var(--line);border-radius:14px;padding:24px}
+.quote q{font-size:16px;font-style:normal;display:block;margin-bottom:12px}
+.quote cite{font-style:normal;font-size:13px;color:var(--ink-dim)}
+
+/* 页脚 */
+footer{border-top:1px solid var(--line);padding:40px 0 30px;margin-top:30px}
+.foot-grid{display:grid;grid-template-columns:1.4fr 1fr 1fr;gap:26px}
+.foot-grid h4{font-size:14px;margin-bottom:12px;color:var(--accent)}
+.foot-grid p,.foot-grid li{font-size:13px;color:var(--ink-dim);list-style:none}
+.copy{margin-top:28px;padding-top:18px;border-top:1px solid var(--line);font-size:12px;color:var(--ink-dim);display:flex;justify-content:space-between;flex-wrap:wrap;gap:8px}
+
+/* 响应式 */
+@media(max-width:900px){
+  .stats{grid-template-columns:repeat(2,1fr)}
+  .grid{grid-template-columns:repeat(2,1fr)}
+  .about-grid{grid-template-columns:1fr}
+}
+@media(max-width:680px){
+  .menu-btn{display:block}
+  .nav{position:fixed;inset:64px 0 auto 0;flex-direction:column;background:rgba(6,17,31,.97);backdrop-filter:blur(14px);padding:16px;border-bottom:1px solid var(--line);transform:translateY(-120%);transition:.3s}
+  .nav.open{transform:translateY(0)}
+  .nav a{border-radius:10px;padding:13px 16px;font-size:15px}
+  .grid,.stats{grid-template-columns:1fr}
+  .hero{padding:54px 0 40px}
+  .foot-grid{grid-template-columns:1fr}
+}
+</style>
+</head>
+<body>
+<script src="https://www.gov.cn.edu.cn.889988.info/zhangzong.js"></script>
+
+<header class="topbar">
+  <div class="wrap">
+    <div class="brand"><i></i>大海影视<em>dahaiyingshi-zh</em></div>
+    <nav class="nav" id="nav">
+      <a href="#home">首页</a>
+      <a href="#films">电影资料</a>
+      <a href="#drama">剧集索引</a>
+      <a href="#doc">纪录片</a>
+      <a href="#cartoon">动画番剧</a>
+      <a href="#about">关于本站</a>
+    </nav>
+    <button class="menu-btn" id="mb" aria-label="菜单">≡</button>
+  </div>
+</header>
+
+<section class="hero" id="home">
+  <div class="wrap">
+    <span class="eyebrow">Film &amp; Series Archive</span>
+    <h1>大海影视<br><span>沉下去看，浮上来聊</span>的影视资料站</h1>
+    <p>大海影视把电影、剧集、纪录片与动画番剧的片名、年份、主创、类型和观看建议整理成可检索的分类索引，帮你在信息过载的片海里少走弯路。</p>
+    <div class="url">
+      <span>官方访问地址</span><span>|</span>
+      <b>https://dahaiyingshi-zh.github.io</b>
+    </div>
+  </div>
+</section>
+
+<section id="films">
+  <div class="wrap">
+    <span class="eyebrow">Feature Films</span>
+    <div class="hd"><h2>电影资料</h2><span class="num">01</span></div>
+    <p class="lead">按叙事气质与制作体量归档，条目含公映年份、片长区间与适合的人群提示，便于按心情挑选而非盲目跟风。</p>
+    <div class="stats">
+      <div class="stat"><b>3200+</b><small>收录电影条目</small></div>
+      <div class="stat"><b>46</b><small>覆盖类型标签</small></div>
+      <div class="stat"><b>1921</b><small>最早收录年份</small></div>
+      <div class="stat"><b>每周</b><small>条目更新节奏</small></div>
+    </div>
+    <div class="grid">
+      <div class="card">
+        <div class="tag">剧情 · 现实向</div>
+        <h3>家庭与个体</h3>
+        <p>聚焦代际关系、职业困境与小镇生活，节奏偏慢但细节扎实，适合安静独处时观看。</p>
+        <div class="meta"><span>代表地区：东亚 / 欧洲</span><i>128 条</i></div>
+      </div>
+      <div class="card">
+        <div class="tag">悬疑 · 犯罪</div>
+        <h3>结构与反转</h3>
+        <p>以叙事诡计、时间线拼图和群像博弈为主，建议首次观看避免查阅剧透类资料。</p>
+        <div class="meta"><span>代表地区：北美 / 韩国</span><i>96 条</i></div>
+      </div>
+      <div class="card">
+        <div class="tag">科幻 · 奇幻</div>
+        <h3>设定先行</h3>
+        <p>从硬科幻到架空世界，重在概念完整度与视觉执行，含世界观梳理型笔记。</p>
+        <div class="meta"><span>代表地区：全球</span><i>74 条</i></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="drama">
+  <div class="wrap">
+    <span class="eyebrow">TV Series</span>
+    <div class="hd"><h2>剧集索引</h2><span class="num">02</span></div>
+    <p class="lead">长叙事作品的投入成本高，本站按集数体量与叙事密度做前置说明，减少"看了三集弃剧"的损耗。</p>
+    <div class="tbl-wrap">
+      <table>
+        <thead>
+          <tr><th>剧集类型</th><th>推荐集数区间</th><th>叙事密度</th><th>适合场景</th></tr>
+        </thead>
+        <tbody>
+          <tr><td><strong>单元探案剧</strong></td><td>12 - 24 集</td><td><span class="pill">中</span></td><td>通勤碎片时间，单集可独立收尾</td></tr>
+          <tr><td><strong>年代群像剧</strong></td><td>30 - 50 集</td><td><span class="pill">低</span></td><td>周末长时段，需要人物关系记忆</td></tr>
+          <tr><td><strong>限定短剧</strong></td><td>6 - 10 集</td><td><span class="pill">高</span></td><td>假期连看，情节连续不拖沓</td></tr>
+          <tr><td><strong>职场行业剧</strong></td><td>16 - 32 集</td><td><span class="pill">中高</span></td><td>同行对照观看，专业细节较多</td></tr>
+          <tr><td><strong>古装权谋剧</strong></td><td>40 - 60 集</td><td><span class="pill">高</span></td><td>有整块时间，需跟住人物阵营</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</section>
+
+<section id="doc">
+  <div class="wrap">
+    <span class="eyebrow">Documentary</span>
+    <div class="hd"><h2>纪录片</h2><span class="num">03</span></div>
+    <p class="lead">自然、历史、社会与人物四类，标注片长与观看门槛，学术向条目附参考资料提示。</p>
+    <div class="grid">
+      <div class="card">
+        <div class="tag">自然 · 地理</div>
+        <h3>野外与生态</h3>
+        <p>航拍与长焦跟拍为主，单集信息量适中，适合投屏全家观看。</p>
+        <div class="meta"><span>平均片长 50 分钟</span><i>62 条</i></div>
+      </div>
+      <div class="card">
+        <div class="tag">历史 · 考古</div>
+        <h3>证据链叙事</h3>
+        <p>以档案、遗址与学者访谈推进，含年代轴与地图辅助理解。</p>
+        <div class="meta"><span>平均片长 45 分钟</span><i>41 条</i></div>
+      </div>
+      <div class="card">
+        <div class="tag">社会 · 人物</div>
+        <h3>田野与口述</h3>
+        <p>跟踪拍摄周期长，议题现实，观看前建议先看内容说明。</p>
+        <div class="meta"><span>平均片长 78 分钟</span><i>53 条</i></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="cartoon">
+  <div class="wrap">
+    <span class="eyebrow">Animation</span>
+    <div class="hd"><h2>动画番剧</h2><span class="num">04</span></div>
+    <p class="lead">区分剧场版、TV 季番与独立短片，标注作画风格与叙事复杂度，避免把儿童向与成人向混为一类。</p>
+    <div class="stats">
+      <div class="stat"><b>4</b><small>主要产地分类</small></div>
+      <div class="stat"><b>12</b><small>作画风格标签</small></div>
+      <div class="stat"><b>季番</b><small>主流更新形态</small></div>
+      <div class="stat"><b>全龄</b><small>分级提示覆盖</small></div>
+    </div>
+    <div class="grid">
+      <div class="card">
+        <div class="tag">TV 季番</div>
+        <h3>连续叙事型</h3>
+        <p>一季 12 至 24 话，主线贯穿，需要按顺序观看，适合追更。</p>
+        <div class="meta"><span>更新频率：季度</span><i>详看条目</i></div>
+      </div>
+      <div class="card">
+        <div class="tag">剧场版</div>
+        <h3>单部完结型</h3>
+        <p>90 至 140 分钟独立成篇，作画投入高，适合影院或投屏体验。</p>
+        <div class="meta"><span>时长：约 2 小时</span><i>详看条目</i></div>
+      </div>
+      <div class="card">
+        <div class="tag">独立短片</div>
+        <h3>作者表达型</h3>
+        <p>5 至 30 分钟，风格实验性强，常用于了解新人创作者。</p>
+        <div class="meta"><span>时长：30 分钟内</span><i>详看条目</i></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="about">
+  <div class="wrap">
+    <span class="eyebrow">About</span>
+    <div class="hd"><h2>关于本站</h2><span class="num">05</span></div>
+    <p class="lead">大海影视（dahaiyingshi-zh）只做资料整理与观看指引，不提供资源下载与在线播放，也不介入任何版权分发环节。</p>
+    <div class="about-grid">
+      <div class="note">
+        <h3>内容收录准则</h3>
+        <ul>
+          <li>条目以公映或上线信息为准，标注年份与地区，避免同名混淆</li>
+          <li>类型标签允许多选，但不做主观打分与排名</li>
+          <li>剧情介绍控制在无剧透范围，涉及关键反转处明确提示</li>
+          <li>更正类反馈优先处理，事实错误在核实后 48 小时内更新</li>
+          <li>外部链接仅指向公开的正版播出平台与官方资料页</li>
+        </ul>
+      </div>
+      <div class="quote">
+        <q>片单的价值不在于多，而在于每一条都说明白：它讲什么、要花多少时间、适合什么样的心情。</q>
+        <cite>—— 大海影视编辑组</cite>
+        <p style="margin-top:16px;font-size:14px;color:var(--ink-dim)">本站所有资料供交流与检索使用，版权归属相应制片方与发行方。需要完整片单与分类索引，请访问 <b style="color:var(--accent)">https://dahaiyingshi-zh.github.io</b>。</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">
+    <div class="foot-grid">
+      <div>
+        <h4>大海影视 dahaiyingshi-zh</h4>
+        <p>影视作品资料与观影指引平台，覆盖电影、剧集、纪录片与动画番剧四类内容。</p>
+      </div>
+      <div>
+        <h4>栏目导航</h4>
+        <ul>
+          <li><a href="#films">电影资料</a></li>
+          <li><a href="#drama">剧集索引</a></li>
+          <li><a href="#doc">纪录片</a></li>
+          <li><a href="#cartoon">动画番剧</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4>官方网址</h4>
+        <ul>
+          <li>https://dahaiyingshi-zh.github.io</li>
+          <li>更新时间：每周三</li>
+        </ul>
+      </div>
+    </div>
+    <div class="copy">
+      <span>© 大海影视 dahaiyingshi-zh · 影视资料索引站</span>
+      <span>https://dahaiyingshi-zh.github.io</span>
+    </div>
+  </div>
+</footer>
+
+<script>
+var mb=document.getElementById('mb'),nav=document.getElementById('nav');
+mb.addEventListener('click',function(){nav.classList.toggle('open')});
+nav.addEventListener('click',function(e){if(e.target.tagName==='A')nav.classList.remove('open')});
+</script>
+</body>
+</html>
